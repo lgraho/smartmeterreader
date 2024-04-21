@@ -1,0 +1,12 @@
+[Unit]
+Description=Smart Meter Reader
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/home/pi/smartmeterreader/venv/bin/python /home/pi/smartmeterreader/smartmeterreader/main.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

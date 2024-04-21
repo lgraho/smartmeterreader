@@ -1,0 +1,73 @@
+
+# Configuration for the M-Bus frame format
+#
+# - frame_size: The size of the M-Bus frame (in bytes)
+# - preamble: The preamble of the M-Bus frame used for detecting the start of the frame (hexadecimal string)
+# - system_title: The section of the M-Bus frame containing the system title
+# - frame_counter: The section of the M-Bus frame containing the frame counter
+# - data: The section of the M-Bus frame containing the APDU data
+frame_format:
+    frame_size: 282
+    preamble: "68fafa68"
+    system_title:
+        start: 11
+        end: 19
+    frame_counter:
+        start: 22
+        end: 26
+    data:
+        start: 26
+        end: 280
+
+# Configuration for the APDU data fields
+#
+# This defines the format of the data in the APDU payload.
+#
+# Each field is defined by a dictionary containing the following key-value pairs:
+# - name: The name of the field (this is used as the key in the output dictionary)
+# - obis: The OBIS code of the field (hexadecimal string; this is used to identify the field in the APDU data)
+# - format: The format string used to unpack the field data (including OBIS). Each field contains a value, a scale, and
+#   a unit. The format string uses the struct module format characters
+#   (https://docs.python.org/3/library/struct.html#format-characters) to specify the data type and byte order of the
+#   field data.
+#
+# Example APDU data field (x is ignored):
+#
+# 00010800FF 06 00003289 02020F   00    16  1E
+# ~~~~~~~~~~ ~~ ~~~~~~~~ ~~~~~~   ~~    ~~  ~~
+#    OBIS   |x |  Value |  x   | Scale |x | Unit |
+#              |(uint32)|      |(int8) |
+apdu_format:
+    - name: "energy"
+      obis: "0100010800ff"
+      format: ">7xI3xbxB"
+    - name: "energyR"
+      obis: "0100020800ff"
+      format: ">7xI3xbxB"
+    - name: "power"
+      obis: "0100010700ff"
+      format: ">7xI3xbxB"
+    - name: "powerR"
+      obis: "0100020700ff"
+      format: ">7xI3xbxB"
+    - name: "voltageL1"
+      obis: "0100200700ff"
+      format: ">7xH3xbxB"
+    - name: "voltageL2"
+      obis: "0100340700ff"
+      format: ">7xH3xbxB"
+    - name: "voltageL3"
+      obis: "0100480700ff"
+      format: ">7xH3xbxB"
+    - name: "currentL1"
+      obis: "01001F0700ff"
+      format: ">7xH3xbxB"
+    - name: "currentL2"
+      obis: "0100330700ff"
+      format: ">7xH3xbxB"
+    - name: "currentL3"
+      obis: "0100470700ff"
+      format: ">7xH3xbxB"
+    - name: "powerfactor"
+      obis: "01000D0700ff"
+      format: ">7xH3xbxB"

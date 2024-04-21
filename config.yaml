@@ -1,0 +1,104 @@
+# Configuration for the M-Bus serial port
+mbus:
+    port: "/dev/ttyUSB0"
+    baudrate: 2400
+
+# The encryption key used to decrypt the M-Bus data (hexadecimal string)
+encryption_key: "<ENCRYPTION_KEY>"
+
+# Configuration for the MQTT client
+mqtt:
+    broker: "192.168.178.2"
+    port: 1883
+    user: "mqtt"
+    password: "<MQTT_PASSWORD>"
+    client_id: "SmartMeter"
+    data_topic: "homeassistant/sensor/smartmeter/state"
+
+# Home assistant discovery topics (see https://www.home-assistant.io/docs/mqtt/discovery/) (optional)
+homeassistant:
+    config_topics:
+        - config_topic: "homeassistant/sensor/smartmeterP/config"
+          config:
+              name: "SmartMeter Power"
+              dev_cla: "power"
+              stat_t: "homeassistant/sensor/smartmeter/state"
+              unit_of_meas: "W"
+              val_tpl: "{{value_json.power}}"
+        - config_topic: "homeassistant/sensor/smartmeterPR/config"
+          config:
+              name: "SmartMeter Power Return"
+              dev_cla: "power"
+              stat_t: "homeassistant/sensor/smartmeter/state"
+              unit_of_meas: "W"
+              val_tpl: "{{value_json.powerR}}"
+        - config_topic: "homeassistant/sensor/smartmeterE/config"
+          config:
+              name: "SmartMeter Energy"
+              dev_cla: "energy"
+              state_class: "total_increasing"
+              stat_t: "homeassistant/sensor/smartmeter/state"
+              unit_of_measurement: "Wh"
+              val_tpl: "{{value_json.energy}}"
+              last_reset: "'1970-01-01T00:00:00+00:00'"
+        - config_topic: "homeassistant/sensor/smartmeterER/config"
+          config:
+              name: "SmartMeter Energy Return"
+              dev_cla: "energy"
+              state_class: "total_increasing"
+              stat_t: "homeassistant/sensor/smartmeter/state"
+              unit_of_measurement: "Wh"
+              val_tpl: "{{value_json.energyR}}"
+              last_reset: "'1970-01-01T00:00:00+00:00'"
+        - config_topic: "homeassistant/sensor/smartmeterV1/config"
+          config:
+              name: "SmartMeter Voltage L1"
+              dev_cla: "voltage"
+              stat_t: "homeassistant/sensor/smartmeter/state"
+              unit_of_meas: "V"
+              val_tpl: "{{value_json.voltageL1}}"
+        - config_topic: "homeassistant/sensor/smartmeterV2/config"
+          config:
+              name: "SmartMeter Voltage L2"
+              dev_cla: "voltage"
+              stat_t: "homeassistant/sensor/smartmeter/state"
+              unit_of_meas: "V"
+              val_tpl: "{{value_json.voltageL2}}"
+        - config_topic: "homeassistant/sensor/smartmeterV3/config"
+          config:
+              name: "SmartMeter Voltage L3"
+              dev_cla: "voltage"
+              stat_t: "homeassistant/sensor/smartmeter/state"
+              unit_of_meas: "V"
+              val_tpl: "{{value_json.voltageL3}}"
+        - config_topic: "homeassistant/sensor/smartmeterI1/config"
+          config:
+              name: "SmartMeter Current L1"
+              dev_cla: "current"
+              stat_t: "homeassistant/sensor/smartmeter/state"
+              unit_of_meas: "A"
+              val_tpl: "{{value_json.currentL1}}"
+        - config_topic: "homeassistant/sensor/smartmeterI2/config"
+          config:
+              name: "SmartMeter Current L2"
+              dev_cla: "current"
+              stat_t: "homeassistant/sensor/smartmeter/state"
+              unit_of_meas: "A"
+              val_tpl: "{{value_json.currentL2}}"
+        - config_topic: "homeassistant/sensor/smartmeterI3/config"
+          config:
+              name: "SmartMeter Current L3"
+              dev_cla: "current"
+              stat_t: "homeassistant/sensor/smartmeter/state"
+              unit_of_meas: "A"
+              val_tpl: "{{value_json.currentL3}}"
+        - config_topic: "homeassistant/sensor/smartmeterPF/config"
+          config:
+              name: "SmartMeter Power Factor"
+              dev_cla: "power_factor"
+              stat_t: "homeassistant/sensor/smartmeter/state"
+              unit_of_meas: " "
+              val_tpl: "{{value_json.powerfactor}}"
+
+
+
