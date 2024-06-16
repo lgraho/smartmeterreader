@@ -45,6 +45,7 @@ class Parser():
             try:
                 item = self._extract_item(apdu, field)
                 value = item.value * 10**item.scale
+                value = value * field["val_multiplier"] if "val_multiplier" in field else value
                 if isinstance(value, float):
                     value = round(value, 3)
                 data[field["name"]] = value

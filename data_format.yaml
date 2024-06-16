@@ -30,6 +30,8 @@ frame_format:
 #   a unit. The format string uses the struct module format characters
 #   (https://docs.python.org/3/library/struct.html#format-characters) to specify the data type and byte order of the
 #   field data.
+# - val_multiplier: A multiplier to apply to the value to convert it to the correct unit (e.g. to convert from Wh to kWh).
+#   This is optional and defaults to 1.
 #
 # Example APDU data field (x is ignored):
 #
@@ -41,9 +43,11 @@ apdu_format:
     - name: "energy"
       obis: "0100010800ff"
       format: ">7xI3xbxB"
+      val_multiplier: 0.001
     - name: "energyR"
       obis: "0100020800ff"
       format: ">7xI3xbxB"
+      val_multiplier: 0.001
     - name: "power"
       obis: "0100010700ff"
       format: ">7xI3xbxB"
